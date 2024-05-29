@@ -14,7 +14,9 @@ public class Mastermind {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        view.Mastermind game = new view.Mastermind();
+        game.setVisible(true);
+        game.setSize(784, 582);
     }
     
 }
