@@ -5,18 +5,20 @@
 package view;
 
 import control.Igra;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author stefa
  */
 public class Mastermind extends javax.swing.JFrame {
-
+    Igra igr;
     /**
      * Creates new form Mastermind
      */
     public Mastermind() {
         initComponents();
+        igr = new Igra();
     }
 
     /**
@@ -45,12 +47,7 @@ public class Mastermind extends javax.swing.JFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Pokušaj", "Pogođeno"
@@ -114,9 +111,11 @@ public class Mastermind extends javax.swing.JFrame {
         jButton3.setBounds(20, 470, 410, 30);
 
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel1.setLabelFor(jTextField1);
+        jLabel1.setText("-");
         jLabel1.setName("error"); // NOI18N
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(30, 40, 160, 0);
+        jLabel1.setBounds(30, 40, 390, 16);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -130,19 +129,28 @@ public class Mastermind extends javax.swing.JFrame {
        {
            try
            {
-               Integer.parseInt(jTextField1.getText());
+               if(Integer.parseInt(jTextField1.getText())<1000 || Integer.parseInt(jTextField1.getText())>=10000)
+                {
+                    jLabel1.setText("Unesite odgovarajuci cetvorocifreni broj");
+                }
+               else
+               {
+                   igr.pokusaj = Integer.parseInt(jTextField1.getText());
+                   System.out.println(igr.pokusaj);
+                   igr.test();
+                   DefaultTableModel dtm = (DefaultTableModel)jTable2.getModel();
+                   dtm.addRow(new Object[]{igr.pokusaj+"", igr.pogodjeno[0]+":"+igr.pogodjeno[1]});
+                   jTable2.setModel(dtm);
+               }
+               
            }
            catch(Exception ex)
            {
                jLabel1.setText("Unesite odgovarajuci cetvorocifreni broj");
-               System.out.println("err");
+               System.out.println("err"+ ex);
                jTextField1.setText("");
            }
-           if(Integer.parseInt(jTextField1.getText())<1000 || Integer.parseInt(jTextField1.getText())>=10000)
-           {
-              jLabel1.setText("Unesite odgovarajuci cetvorocifreni broj");
-               System.out.println("err");
-           }
+           
        }
     }//GEN-LAST:event_jTextField1KeyPressed
 
