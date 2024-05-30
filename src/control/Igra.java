@@ -13,7 +13,6 @@ import java.util.Random;
 public class Igra {
     String user;
     int rnd;
-    public int left_rounds;
     public int pokusaj;
     public int[] pogodjeno;
     public Igra()
@@ -21,15 +20,15 @@ public class Igra {
         user = "";
         Random r = new Random();
         rnd = r.nextInt(1000, 10000);
-        left_rounds = 6;
         pokusaj = 0;
         int[] pogodjeno2 = {0, 0};
         pogodjeno = pogodjeno2;
     }
     public void test()
     {
-        int temp = rnd;
-        int pok = pokusaj;
+       System.out.println(rnd);
+       int temp = rnd;
+       int pok = pokusaj;
        while(temp != 0)
        {
            if(temp % 10 == pok % 10)

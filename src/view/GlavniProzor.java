@@ -11,12 +11,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author stefa
  */
-public class Mastermind extends javax.swing.JFrame {
+public class GlavniProzor extends javax.swing.JFrame {
     Igra igr;
     /**
      * Creates new form Mastermind
      */
-    public Mastermind() {
+    public GlavniProzor() {
         initComponents();
         igr = new Igra();
     }
@@ -30,9 +30,6 @@ public class Mastermind extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
         jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -40,36 +37,13 @@ public class Mastermind extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 102, 204));
         getContentPane().setLayout(null);
-
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Pokušaj", "Pogođeno"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable2);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(20, 60, 400, 390);
 
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -77,7 +51,7 @@ public class Mastermind extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jTextField1);
-        jTextField1.setBounds(20, 10, 400, 30);
+        jTextField1.setBounds(30, 10, 480, 30);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -91,7 +65,7 @@ public class Mastermind extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(450, 10, 310, 440);
+        jScrollPane1.setBounds(550, 10, 310, 440);
 
         jButton1.setText("Učitaj Igru");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -100,15 +74,20 @@ public class Mastermind extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(450, 473, 310, 30);
+        jButton1.setBounds(550, 470, 310, 30);
 
         jButton2.setText("Sačuvaj Igru");
         getContentPane().add(jButton2);
-        jButton2.setBounds(20, 510, 410, 30);
+        jButton2.setBounds(30, 510, 480, 30);
 
         jButton3.setText("Predajem Se");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton3);
-        jButton3.setBounds(20, 470, 410, 30);
+        jButton3.setBounds(30, 470, 480, 30);
 
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
         jLabel1.setLabelFor(jTextField1);
@@ -116,6 +95,21 @@ public class Mastermind extends javax.swing.JFrame {
         jLabel1.setName("error"); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(30, 40, 390, 16);
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Pokušaj", "Pogođeno"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
+
+        jScrollPane3.setViewportView(jScrollPane2);
+
+        getContentPane().add(jScrollPane3);
+        jScrollPane3.setBounds(30, 70, 480, 370);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -132,15 +126,18 @@ public class Mastermind extends javax.swing.JFrame {
                if(Integer.parseInt(jTextField1.getText())<1000 || Integer.parseInt(jTextField1.getText())>=10000)
                 {
                     jLabel1.setText("Unesite odgovarajuci cetvorocifreni broj");
+                    jTextField1.setText("");
                 }
                else
                {
                    igr.pokusaj = Integer.parseInt(jTextField1.getText());
-                   System.out.println(igr.pokusaj);
                    igr.test();
                    DefaultTableModel dtm = (DefaultTableModel)jTable2.getModel();
                    dtm.addRow(new Object[]{igr.pokusaj+"", igr.pogodjeno[0]+":"+igr.pogodjeno[1]});
+                   igr.pogodjeno[0] = 0;
+                   igr.pogodjeno[1] = 0;
                    jTable2.setModel(dtm);
+                   jTextField1.setText("");
                }
                
            }
@@ -153,6 +150,13 @@ public class Mastermind extends javax.swing.JFrame {
            
        }
     }//GEN-LAST:event_jTextField1KeyPressed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        igr = new Igra();
+        DefaultTableModel dtm = (DefaultTableModel)jTable2.getModel();
+        dtm.setRowCount(0);
+        jTable2.setModel(dtm);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -171,20 +175,21 @@ public class Mastermind extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Mastermind.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GlavniProzor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Mastermind.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GlavniProzor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Mastermind.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GlavniProzor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Mastermind.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GlavniProzor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Mastermind().setVisible(true);
+                new GlavniProzor().setVisible(true);
             }
         });
     }
@@ -194,9 +199,9 @@ public class Mastermind extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;

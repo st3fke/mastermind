@@ -16,7 +16,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        view.Mastermind game = new view.Mastermind();
+        view.GlavniProzor game = new view.GlavniProzor();
         game.setVisible(true);
         game.setSize(784, 582);
     }
