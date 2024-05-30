@@ -11,8 +11,8 @@ import java.util.Random;
  * @author stefa
  */
 public class Igra {
-    String user;
-    int rnd;
+    public String user;
+    public int rnd;
     public int pokusaj;
     public int[] pogodjeno;
     public Igra()

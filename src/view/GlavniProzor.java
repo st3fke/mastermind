@@ -5,7 +5,10 @@
 package view;
 
 import control.Igra;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.DataBaseProxy;
 
 /**
  *
@@ -13,12 +16,15 @@ import javax.swing.table.DefaultTableModel;
  */
 public class GlavniProzor extends javax.swing.JFrame {
     Igra igr;
+    DataBaseProxy db;
     /**
      * Creates new form Mastermind
      */
     public GlavniProzor() {
         initComponents();
         igr = new Igra();
+        db = new DataBaseProxy();
+        populate();
     }
 
     /**
@@ -55,8 +61,7 @@ public class GlavniProzor extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Datum", "Igrac"
@@ -77,8 +82,13 @@ public class GlavniProzor extends javax.swing.JFrame {
         jButton1.setBounds(550, 470, 310, 30);
 
         jButton2.setText("Sačuvaj Igru");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton2);
-        jButton2.setBounds(30, 510, 480, 30);
+        jButton2.setBounds(30, 530, 480, 30);
 
         jButton3.setText("Predajem Se");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -87,7 +97,7 @@ public class GlavniProzor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton3);
-        jButton3.setBounds(30, 470, 480, 30);
+        jButton3.setBounds(30, 490, 480, 30);
 
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
         jLabel1.setLabelFor(jTextField1);
@@ -109,9 +119,10 @@ public class GlavniProzor extends javax.swing.JFrame {
         jScrollPane3.setViewportView(jScrollPane2);
 
         getContentPane().add(jScrollPane3);
-        jScrollPane3.setBounds(30, 70, 480, 370);
+        jScrollPane3.setBounds(30, 50, 480, 430);
 
-        pack();
+        setSize(new java.awt.Dimension(898, 585));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -158,6 +169,12 @@ public class GlavniProzor extends javax.swing.JFrame {
         jTable2.setModel(dtm);
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       igr.user = JOptionPane.showInputDialog("Unesite Vase ime: ");
+       db.saveGame(igr);
+       populate();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -192,6 +209,18 @@ public class GlavniProzor extends javax.swing.JFrame {
                 new GlavniProzor().setVisible(true);
             }
         });
+    }
+    public void populate()
+    {
+      ArrayList<String> games = db.getPrevGames();
+      DefaultTableModel dtm = (DefaultTableModel)jTable1.getModel();
+      dtm.setRowCount(0);
+      for(String game : games)
+      {
+          String[] deo = game.split(",");
+          dtm.addRow(new Object[]{deo[0],deo[1]});
+      }
+      jTable1.setModel(dtm);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
