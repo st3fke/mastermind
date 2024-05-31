@@ -49,6 +49,7 @@ public class GlavniProzor extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Slagalica");
         setBackground(new java.awt.Color(0, 102, 204));
         getContentPane().setLayout(null);
 
@@ -167,7 +168,7 @@ public class GlavniProzor extends javax.swing.JFrame {
                    else
                    {
                    DefaultTableModel dtm = (DefaultTableModel)jTable2.getModel();
-                   dtm.addRow(new Object[]{igr.pokusaj+"", igr.pogodjeno[0]+":"+igr.pogodjeno[1]});
+                   dtm.addRow(new Object[]{igr.pokusaj+"", "Tacno mesto: "+igr.pogodjeno[0]+" Pogresno mesto: "+igr.pogodjeno[1]});
                    igr.pogodjeno[0] = 0;
                    igr.pogodjeno[1] = 0;
                    jTable2.setModel(dtm);
