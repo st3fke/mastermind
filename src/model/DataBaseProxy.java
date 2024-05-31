@@ -45,16 +45,38 @@ public class DataBaseProxy {
     }
     public void saveGame(Igra igr)
     {
-        PreparedStatement myStmt; 
         try {
+            PreparedStatement myStmt; 
             myStmt = c.prepareStatement("INSERT INTO Igra(Datum,Igrac,igracevPotez,ZamisljenBr) VALUES (NOW(),?,?,?)");
             myStmt.setString(1,igr.user);
             myStmt.setInt(2,igr.pokusaj);
             myStmt.setInt(3,igr.rnd);
-            ResultSet myRs= myStmt.executeQuery();  
+            myStmt.execute();  
         } 
         catch (SQLException ex) {
             java.util.logging.Logger.getLogger(DataBaseProxy.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    public Igra loadGame(String date, String name)
+    {
+        try {
+            Igra igr = new Igra();
+            PreparedStatement myStmt; 
+            myStmt = c.prepareStatement("SELECT * FROM Igra WHERE Datum = ? AND Igrac = ?");
+            myStmt.setString(1,date);
+            myStmt.setString(2,name);
+            ResultSet rs = myStmt.executeQuery();
+            while(rs.next())
+            {
+                igr.user = rs.getString("Igrac");
+                igr.pokusaj = rs.getInt("igracevPotez");
+                igr.rnd = rs.getInt("ZamisljenBr");
+            }
+            return igr;
+        } 
+        catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(DataBaseProxy.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }

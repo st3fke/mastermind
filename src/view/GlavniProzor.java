@@ -126,7 +126,13 @@ public class GlavniProzor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+       int row = jTable1.getSelectedRow();
+       igr = db.loadGame(jTable1.getValueAt(row, 0).toString(),jTable1.getValueAt(row, 1).toString());
+       DefaultTableModel dtm = (DefaultTableModel)jTable2.getModel();
+       dtm.setRowCount(0);
+       igr.test();
+       dtm.addRow(new Object []{igr.pokusaj+"",igr.pogodjeno[0]+":"+igr.pogodjeno[1]});
+       jTable2.setModel(dtm);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
