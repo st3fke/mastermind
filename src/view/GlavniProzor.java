@@ -37,8 +37,6 @@ public class GlavniProzor extends javax.swing.JFrame {
     private void initComponents() {
 
         jTextField1 = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -46,6 +44,9 @@ public class GlavniProzor extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 102, 204));
@@ -59,19 +60,6 @@ public class GlavniProzor extends javax.swing.JFrame {
         getContentPane().add(jTextField1);
         jTextField1.setBounds(30, 10, 480, 30);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Datum", "Igrac"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(550, 10, 310, 440);
-
         jButton1.setText("Učitaj Igru");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,7 +67,7 @@ public class GlavniProzor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(550, 470, 310, 30);
+        jButton1.setBounds(540, 470, 460, 30);
 
         jButton2.setText("Sačuvaj Igru");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -121,7 +109,25 @@ public class GlavniProzor extends javax.swing.JFrame {
         getContentPane().add(jScrollPane3);
         jScrollPane3.setBounds(30, 50, 480, 430);
 
-        setSize(new java.awt.Dimension(898, 606));
+        jScrollPane4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Datum", "Igrac"
+            }
+        ));
+        jTable1.setShowGrid(false);
+        jScrollPane1.setViewportView(jTable1);
+
+        jScrollPane4.setViewportView(jScrollPane1);
+
+        getContentPane().add(jScrollPane4);
+        jScrollPane4.setBounds(540, 10, 460, 430);
+
+        setSize(new java.awt.Dimension(1034, 606));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -247,6 +253,7 @@ public class GlavniProzor extends javax.swing.JFrame {
       dtm.setRowCount(0);
       for(String game : games)
       {
+          System.out.println(game);
           String[] deo = game.split(",");
           dtm.addRow(new Object[]{deo[0],deo[1]});
       }
@@ -261,6 +268,7 @@ public class GlavniProzor extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
