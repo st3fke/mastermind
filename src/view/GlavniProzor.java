@@ -121,7 +121,7 @@ public class GlavniProzor extends javax.swing.JFrame {
         getContentPane().add(jScrollPane3);
         jScrollPane3.setBounds(30, 50, 480, 430);
 
-        setSize(new java.awt.Dimension(898, 585));
+        setSize(new java.awt.Dimension(898, 606));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -132,6 +132,8 @@ public class GlavniProzor extends javax.swing.JFrame {
        dtm.setRowCount(0);
        igr.test();
        dtm.addRow(new Object []{igr.pokusaj+"",igr.pogodjeno[0]+":"+igr.pogodjeno[1]});
+       igr.pogodjeno[0] = 0;
+       igr.pogodjeno[1] = 0;
        jTable2.setModel(dtm);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -149,12 +151,22 @@ public class GlavniProzor extends javax.swing.JFrame {
                {
                    igr.pokusaj = Integer.parseInt(jTextField1.getText());
                    igr.test();
+                   if(igr.pogodjeno[0] == 4)
+                   {
+                       JOptionPane.showMessageDialog(null,"POBEDILI STE!!!", "SVAKA CAST", JOptionPane.INFORMATION_MESSAGE);
+                       Igra igr = new Igra();
+                       ((DefaultTableModel)jTable2.getModel()).setRowCount(0);
+                       jTextField1.setText("");
+                   }
+                   else
+                   {
                    DefaultTableModel dtm = (DefaultTableModel)jTable2.getModel();
                    dtm.addRow(new Object[]{igr.pokusaj+"", igr.pogodjeno[0]+":"+igr.pogodjeno[1]});
                    igr.pogodjeno[0] = 0;
                    igr.pogodjeno[1] = 0;
                    jTable2.setModel(dtm);
                    jTextField1.setText("");
+                   }
                }
                
            }
@@ -176,9 +188,21 @@ public class GlavniProzor extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       igr.user = JOptionPane.showInputDialog("Unesite Vase ime: ");
+       String usr = "";
+        if(igr.user == "")
+       {
+        usr = JOptionPane.showInputDialog("Unesite Vase ime: ");
+       }
+        System.out.println(igr.user);
+       if(usr != null)
+       {
+       igr.user = usr;
        db.saveGame(igr);
        populate();
+       ((DefaultTableModel)jTable2.getModel()).setRowCount(0);
+       igr = new Igra();
+       }
+       
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
